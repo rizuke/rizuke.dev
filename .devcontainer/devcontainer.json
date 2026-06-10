@@ -1,0 +1,11 @@
+{
+  "name": "Astro Blog",
+  "image": "node:lts-alpine",
+  "forwardPorts": [4000],
+  "postCreateCommand": "corepack enable && corepack prepare pnpm@latest --activate && pnpm install",
+  "customizations": {
+    "vscode": {
+      "extensions": ["astro-build.astro-vscode"]
+    }
+  }
+}
