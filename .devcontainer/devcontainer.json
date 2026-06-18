@@ -1,6 +1,6 @@
 {
   "name": "Astro Blog",
-  "image": "node-pnpm:latest",
+  "image": "ghcr.io/rizuke/devcontainers/node-pnpm:latest",
   "remoteUser": "node",
   "forwardPorts": [4321],
   "postCreateCommand": "pnpm install",
