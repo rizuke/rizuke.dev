@@ -5,7 +5,7 @@
   "forwardPorts": [4321],
   "postCreateCommand": "pnpm install",
   "mounts": [
-    "source=pnpm-store,target=/.pnpm-store,type=volume"
+    "source=pnpm-store,target=/home/node/.pnpm-store,type=volume"
   ],
   "customizations": {
     "vscode": {
@@ -14,9 +14,5 @@
   },
   "containerEnv": {
     "ASTRO_TELEMETRY_DISABLED": "1"
-  },
-  "runArgs": [
-    "--cap-drop=ALL",
-    "--security-opt=no-new-privileges:true"
-  ]
+  }
 }
