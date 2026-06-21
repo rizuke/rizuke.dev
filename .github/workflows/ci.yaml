@@ -1,0 +1,16 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    uses: rizuke/.github/.github/workflows/build-docker-image.yaml@main
+    with:
+      image-name: rizuke-dev
+      context: .
+      dockerfile: ./Dockerfile
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
