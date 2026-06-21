@@ -8,39 +8,22 @@ on:
       - completed
     branches:
       - main
-
   workflow_dispatch:
 
 jobs:
   deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
-
+    uses: rizuke/.github/.github/workflows/deploy-to-homelab.yaml@main
     permissions:
       id-token: write
-
-    steps:
-      - name: Connect to Tailscale
-        uses: tailscale/github-action@v4
-        with:
-          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-          audience: ${{ secrets.TS_AUDIENCE }}
-          tags: tag:ci
-
-      - name: Deploy to raspi
-        env:
-          IMAGE: ghcr.io/${{ github.repository }}/rizuke-dev:latest
-          RASPI_USER: ${{ secrets.RASPI_USER }}
-          RASPI_TAILSCALE_HOSTNAME: ${{ secrets.RASPI_TAILSCALE_HOSTNAME }}
-        run: |
-          ssh -o StrictHostKeyChecking=no "$RASPI_USER"@"$RASPI_TAILSCALE_HOSTNAME" "
-            docker pull $IMAGE
-            docker stop rizuke || true
-            docker rm rizuke || true
-            docker run -d \
-              --name rizuke \
-              --restart unless-stopped \
-              --network main-tunnel \
-              $IMAGE
-          "
+    with:
+      image-name: rizuke-dev
+      container-name: rizuke
+      container-network: main-tunnel
+      deploy-secondary: true
+    secrets:
+      deploy-ssh-user: ${{ secrets.DEPLOY_SSH_USER }}
+      deploy-node-primary: ${{ secrets.DEPLOY_NODE_PRIMARY }}
+      deploy-node-secondary: ${{ secrets.DEPLOY_NODE_SECONDARY }}
+      ts-oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+      ts-audience: ${{ secrets.TS_AUDIENCE }}
