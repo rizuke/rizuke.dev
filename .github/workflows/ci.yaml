@@ -12,6 +12,7 @@ jobs:
       image-name: rizuke-dev
       context: .
       dockerfile: ./Dockerfile
+      multi-arch: true
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
     permissions:
