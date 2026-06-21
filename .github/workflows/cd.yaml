@@ -13,7 +13,7 @@ on:
 jobs:
   deploy:
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
-    uses: rizuke/.github/.github/workflows/deploy-to-homelab.yaml@main
+    uses: rizuke/.github/.github/workflows/tailnet-deploy.yaml@main
     permissions:
       id-token: write
     with:
