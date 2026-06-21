@@ -5,6 +5,8 @@ on:
     branches:
       - main
 
+  workflow_dispatch:
+
 jobs:
   build-and-push:
     uses: rizuke/.github/.github/workflows/build-docker-image.yaml@main
