@@ -1,9 +1,12 @@
 ---
 const today = new Date();
+const builtAt = today.toISOString().replace('T', ' ').slice(0, 16) + ' UTC';
 ---
 
 <footer>
 	&copy; {today.getFullYear()} Razvan Romanescu. All rights reserved.
+	<br/>
+	<span class="timestamp">Last built: {builtAt}</span>
 	<div class="social-links">
 		<a href="https://github.com/rizuke" target="_blank">
 			<span class="sr-only">Go to Rizuke's GitHub repo</span>
@@ -34,5 +37,9 @@ const today = new Date();
 	}
 	.social-links a:hover {
 		color: rgb(var(--gray-dark));
+	}
+	.timestamp {
+		font-size: 0.75em;
+		opacity: 0.6;
 	}
 </style>
