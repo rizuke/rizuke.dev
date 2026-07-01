@@ -3,7 +3,7 @@
   "image": "ghcr.io/rizuke/devcontainers/node-pnpm:latest",
   "remoteUser": "node",
   "forwardPorts": [4321],
-  "postCreateCommand": "pnpm install",
+  "postCreateCommand": "pnpm install && curl -fsSL https://raw.githubusercontent.com/rizuke/agents/main/AGENTS.md -o ~/.pi/agent/AGENTS.md",
   "mounts": [
     "source=pnpm-store,target=/home/node/.pnpm-store,type=volume",
     "source=pi-agent,target=/home/node/.pi/agent,type=volume"
