@@ -1,5 +1,21 @@
-// Place any global data in this file.
-// You can import this data from anywhere in your site by using the `import` keyword.
+import type { Site, Metadata } from "./types";
 
-export const SITE_TITLE = "Rizuke's";
-export const SITE_DESCRIPTION = 'Building projects, writing about them, and whatever comes next.';
+export const SITE: Site = {
+  NAME: "Rizuke",
+  EMAIL: "contact@rizuke.dev",
+  NUM_POSTS_ON_HOMEPAGE: 5,
+};
+
+export const HOME: Metadata = {
+  TITLE: "Home",
+  DESCRIPTION:
+    "Building projects, writing about them, and whatever comes next.",
+};
+
+export const BLOG: Metadata = {
+  TITLE: "Blog",
+  DESCRIPTION:
+    "Building projects, writing about them, and whatever comes next.",
+};
+
+
