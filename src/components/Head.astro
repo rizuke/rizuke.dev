@@ -9,24 +9,33 @@ import inter600 from "@fontsource/inter/files/inter-latin-600-normal.woff2";
 import lora400 from "@fontsource/lora/files/lora-latin-400-normal.woff2";
 import lora600 from "@fontsource/lora/files/lora-latin-600-normal.woff2";
 
-import { ClientRouter } from "astro:transitions";
 import { SITE } from "../consts";
+import favicon from "../assets/favicon.svg";
+import logo from "../assets/logo.svg";
 
 interface Props {
   title: string;
   description: string;
   image?: string;
+  publishedAt?: string;
+  organization?: boolean;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = "/rizuke-dev-favicon.svg" } = Astro.props;
+const {
+  title,
+  description,
+  image = favicon.src,
+  publishedAt,
+  organization = false,
+} = Astro.props;
 ---
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/rizuke-dev-favicon.svg" />
+<link rel="icon" type="image/svg+xml" href={favicon.src} />
 <meta name="generator" content={Astro.generator} />
 
 <!-- Font preloads -->
@@ -44,20 +53,28 @@ const { title, description, image = "/rizuke-dev-favicon.svg" } = Astro.props;
 <meta name="description" content={description} />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
+<meta property="og:type" content={publishedAt ? "article" : "website"} />
 <meta property="og:url" content={Astro.url} />
+<meta property="og:site_name" content={SITE.NAME} />
+<meta property="og:locale" content="en_GB" />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image, Astro.url)} />
 
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+{publishedAt && (
+  <>
+    <meta property="article:published_time" content={publishedAt} />
+    <meta property="article:author" content={SITE.EMAIL} />
+    <link rel="author" href={`mailto:${SITE.EMAIL}`} />
+  </>
+)}
 
-<ClientRouter />
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={Astro.url} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={new URL(image, Astro.url)} />
 
 <!-- RSS Link -->
 <link
@@ -67,12 +84,41 @@ const { title, description, image = "/rizuke-dev-favicon.svg" } = Astro.props;
   href={new URL("rss.xml", Astro.site)}
 />
 
-<script>
-  import type { TransitionBeforeSwapEvent } from "astro:transitions/client";
-  document.addEventListener("astro:before-swap", (e) => {
-    const ev = e as TransitionBeforeSwapEvent;
-    ev.newDocument.head
-      .querySelectorAll('link[as="font"]')
-      .forEach((link) => link.remove());
-  });
-</script>
+{publishedAt && (
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: title,
+      description: description,
+      url: canonicalURL.href,
+      datePublished: publishedAt,
+      dateModified: publishedAt,
+      author: {
+        "@type": "Person",
+        name: SITE.NAME,
+        email: SITE.EMAIL,
+      },
+    })}
+  />
+)}
+
+{organization && (
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: SITE.NAME,
+      url: new URL("/", Astro.site).href,
+      publisher: {
+        "@type": "Organization",
+        name: SITE.NAME,
+        email: SITE.EMAIL,
+        url: new URL("/", Astro.site).href,
+        logo: new URL(logo.src, Astro.site).href,
+      },
+    })}
+  />
+)}

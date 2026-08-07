@@ -1,5 +1,9 @@
 ---
 import { SITE } from "../consts";
+import { cn } from "../lib/utils";
+import logo from "../assets/logo.svg";
+
+const isActive = Astro.url.pathname.startsWith("/blog");
 ---
 
 <header>
@@ -7,7 +11,7 @@ import { SITE } from "../consts";
     <div class="flex justify-between items-center">
       <a href="/" class="inline-block">
         <img
-          src="/rizuke-dev-logo.svg"
+          src={logo.src}
           alt={SITE.NAME}
           class="h-6 w-auto"
         />
@@ -15,7 +19,12 @@ import { SITE } from "../consts";
       <div class="flex items-center gap-3">
         <a
           href="/blog"
-          class="text-sm text-white/60 hover:text-white transition-colors duration-300 ease-in-out"
+          class={cn(
+            "text-md transition-colors duration-300 ease-in-out",
+            isActive
+              ? "text-white"
+              : "text-white/60 hover:text-white",
+          )}
         >
           blog
         </a>
