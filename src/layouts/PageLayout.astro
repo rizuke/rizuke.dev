@@ -13,13 +13,16 @@ type Props = {
 };
 
 const { title, description, publishedAt, organization } = Astro.props;
+
+const pageTitle =
+  Astro.url.pathname === "/" ? "Rizuke.dev" : `${title} | ${SITE.NAME}`;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <Head
-      title={`${title} | ${SITE.NAME}`}
+      title={pageTitle}
       description={description}
       publishedAt={publishedAt}
       organization={organization}
