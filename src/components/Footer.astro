@@ -8,8 +8,17 @@ const buildDate = new Date().toISOString().replace("T", " ").slice(0, 16) + " UT
 <footer>
   <Container>
     <div class="text-center text-sm">
-      <div>&copy; {new Date().getFullYear()} {SITE.NAME}</div>
-      <div class="opacity-50">Built {buildDate}</div>
+      <button
+        type="button"
+        aria-label={`${SITE.NAME} copyright. Built ${buildDate}`}
+        class="group relative inline-block cursor-help focus:outline-none">
+        &copy; {new Date().getFullYear()} {SITE.NAME}
+        <span
+          role="tooltip"
+          class="pointer-events-none absolute bottom-full left-1/2 mb-2 w-max -translate-x-1/2 rounded-md bg-white px-2 py-1 text-xs font-medium text-neutral-900 shadow-lg opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100">
+          Built {buildDate}
+        </span>
+      </button>
     </div>
   </Container>
 </footer>
