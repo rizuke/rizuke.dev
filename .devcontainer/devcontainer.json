@@ -1,6 +1,6 @@
 {
   "name": "Astro Blog",
-  "image": "ghcr.io/rizuke/devcontainers/node-pnpm:latest",
+  "image": "ghcr.io/rizuke/devcontainers/node:latest",
   "remoteUser": "node",
   "forwardPorts": [4321],
   "postCreateCommand": "pnpm install && curl -fsSL https://raw.githubusercontent.com/rizuke/agents/main/AGENTS.md -o ~/.pi/agent/AGENTS.md",

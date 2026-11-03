@@ -1,4 +1,4 @@
-FROM ghcr.io/rizuke/devcontainers/node-pnpm:latest AS builder
+FROM ghcr.io/rizuke/devcontainers/node:latest AS builder
 
 USER root
 RUN mkdir -p /app && chown node:node /app
