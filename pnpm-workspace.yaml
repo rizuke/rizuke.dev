@@ -1,13 +1,6 @@
 allowBuilds:
   esbuild: true
   sharp: true
-minimumReleaseAgeExclude:
-  - astro@6.4.6
-settings:
-  allowBuilds:
-    - sharp
-    - esbuild
-    - "@img/sharp-libvips-linux-arm64"
-    - "@img/sharp-libvips-linuxmusl-arm64"
-  minimumReleaseAge: 1440
-  blockExoticSubdeps: true
+
+minimumReleaseAge: 1440
+blockExoticSubdeps: true
