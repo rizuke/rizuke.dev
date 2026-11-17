@@ -34,6 +34,8 @@ const isActive = Astro.url.pathname.startsWith("/blog");
 </header>
 
 <style>
+  @reference "../styles/global.css";
+
   header {
     @apply fixed top-0 left-0 right-0 z-50 py-5;
     @apply bg-neutral-950/90 backdrop-blur-sm;
